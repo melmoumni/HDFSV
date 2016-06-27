@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="resources/scripts/jquery-1.12.1.min.js" charset="utf-8"></script>
+<script src="resources/scripts/d3.min.js" charset="utf-8"></script>
+<script src="resources/scripts/d3.tip.v0.6.3.js" charset="utf-8"></script>
+<link rel="stylesheet" href="resources/css/hive.css">
+</head>
+<body>
+<div id="buttonWrapper">
+<a class="button" href="/HDFSV/HadoopView">HDFS view</a>
+<a class="button" href="/HDFSV/HiveView">Refresh view</a>
+<a class="button" href="/HDFSV/HBaseView">HBase view</a>
+<a class="button" href="/HDFSV/NodesView">See disks details</a><div id="hBorder"></div>
+</div>
+
+<div id="vBorder"></div>
+<div id="chartDatabases"></div>
+<div id="databases">
+		<table class="table-sort tablesorter" cellspacing="0" cellpadding="0">
+			<thead>
+					<tr>
+					<th></th>
+					<th>Databases</th>
+					<th></th>
+					</tr>
+				<tr>
+					
+					<th><span>Name</span></th>
+					<th><span>Location /</span></th>
+					<th><span>Size</span></th>
+				</tr>
+			</thead>
+			<tbody id="databases_tbody">
+			</tbody>
+		</table>
+	</div>
+<div id="chartTables"></div>
+<div id="internals">
+		<table class="table-sort" cellspacing="0" cellpadding="0">
+			<thead id="internals_thead">
+
+				
+			</thead>
+			<tbody id="internals_tbody">
+			</tbody>
+		</table>
+</div>
+<div id="externals">
+		<table class="table-sort" cellspacing="0" cellpadding="0">
+			<thead id="externals_thead">
+
+			</thead>
+			<tbody id="externals_tbody">
+			</tbody>
+		</table>
+</div>
+<div id="waitChartDatabases"><img alt="just wait a sec" src="resources/waiting.gif"></div>
+<div id="waitChartTables"><img alt="just wait a sec" src="resources/waiting.gif"></div>
+<div id="error" style="display:none; position: absolute; top:0px; left: 100px;"></div>
+<script src="resources/scripts/hive.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="resources/scripts/jquery-1.12.1.min.js" charset="utf-8"></script>
+<script src="resources/scripts/d3.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="resources/css/style.css">
+</head>
+<body>
+	<script type="text/javascript">
+		function f(val, numeric) {
+			var ret =  ( 1 * (Math.pow(10, (val%3))) );
+			if(numeric)
+				return ret;
+			var ext = ['o', 'Ko', 'Mo', 'Go', 'To'];
+			return ret + " " + ext[Math.floor(val/3)];
+
+		}
+	</script>
+	<a class="button" id="refresh" href="/HDFSV/HadoopView">Refresh view</a>
+	<a class="button" href="/HDFSV/HiveView">Hive view</a>
+	<a class="button" href="/HDFSV/HBaseView">HBase view</a>
+	<a class="button" href="/HDFSV/NodesView">See disks details</a>
+	<div id="time"></div>
+	<div id="replication"></div>
+	<div id="border"></div>
+	<div id="chart"></div>
+	<div id="center"></div>
+	<div id="infos"></div>
+	<a class="button" id="details" href="/HDFSV/NodesView">See disks details</a>
+	<div id="infoSize"></div>
+	<div id="path"></div>
+	<div id="wait">
+		<img alt="just wait a sec" src="resources/waiting.gif">
+	</div>
+	<div id="range-wrapper">
+		<input id="range" type="range" min="0" max="12" value="0" onchange="rangevalue.value=f(value)" />
+		<output id="rangevalue"></output>
+	</div>
+	<div id="error" style="display:none; position: absolute; top:80px; left: 100px;"></div>
+	<script src="resources/scripts/d3.tip.v0.6.3.js"></script>
+	<script src="resources/scripts/script.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+@CHARSET "UTF-8";
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: auto;
+	position: relative;
+	background-color: #1a1a1a;
+}
+
+html, body {
+	height: 100%;
+	min-height: 100%
+}
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.circle {
+	fill: none;
+	pointer-events: all;
+	fill: #cccccc;
+}
+.right {
+	float: right;
+}
+
+
+.circle {
+	display: block;
+	background: black;
+	border-radius: 50%;
+	height: 10px;
+	width: 10px;
+	float: left;
+	margin-top: 3px;
+	margin-right: 5px;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0;
+	border: 1px solid #A1A1A1;
+}
+
+
+.infos {
+	overflow: auto;
+}
+
+.overflow {
+	cursor: pointer;
+	overflow:auto;
+	display: inline-block; 
+	width: 100%;
+}
+
+.overflow:hover  {
+	background: #2C2C2C;
+}
+
+.highlighted {
+	background: #2C2C2C;
+}
+
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+}
+
+.db-info {
+	cursor: pointer;
+}
+
+.db-info:hover {
+	background: #2C2C2C;
+}
+
+#tables {
+	overflow: auto;
+}
+
+/***** table ******/
+em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+table { 
+  line-height: 1;
+  color: #585858;
+}
+
+br { display: block; line-height: 1.6em; } 
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+ol, ul { list-style: none; }
+
+input, textarea { 
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none; 
+}
+
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+strong, b { font-weight: bold; } 
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+h1 { 
+  font-family: 'Amarante', Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: 3.6em;
+  line-height: 1.7em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#tables {
+  display: block;
+  margin: 0 auto;
+}
+
+.table-sort {
+  margin: 0 auto;
+  font-size: 0.8em;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.table-sort thead {
+  cursor: pointer;
+  background: #c9dff0;
+}
+.table-sort thead tr th { 
+  font-weight: bold;
+  padding: 8px 30px;
+  padding-left: 42px;
+}
+.table-sort thead tr th span { 
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+.table-sort thead tr th.headerSortUp, .table-sort thead tr th.headerSortDown {
+  background: #acc8dd;
+}
+
+.table-sort tbody tr { 
+  color: #555;
+}
+.table-sort tbody tr td {
+  text-align: center;
+  padding: 5px 10px;
+}
+.table-sort tbody tr td.lalign {
+  text-align: left;
+}
+
+path{
+	cursor:pointer;
+}
+
+
+.message {
+	border: 1px solid;
+	margin: 10px 10px;
+	padding: 10px 15px 10px 15px;
+	border-radius:10px;
+	cursor: pointer; 
+}
+
+#error { z-index: 99999999; }
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+}
+
+.warning {
+	color: #9F6000;
+    background-color: #FEEFB3;
+}
+
+#vBorder{
+	position: absolute;	
+	background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* Standard syntax */
+	top: 0;
+	width: 1px;
+	height: 100%;
+	left:67%;
+}

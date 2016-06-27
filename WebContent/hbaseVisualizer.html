@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="resources/scripts/jquery-1.12.1.min.js" charset="utf-8"></script>
+<script src="resources/scripts/d3.min.js" charset="utf-8"></script>
+<script src="resources/scripts/d3.tip.v0.6.3.js" charset="utf-8"></script>
+
+<link rel="stylesheet" href="resources/css/hbase.css">
+</head>
+<body>
+<a class="button" href="/HDFSV/HadoopView">HDFS view</a>
+<a class="button" href="/HDFSV/HiveView">Hive view</a>
+<a class="button" href="/HDFSV/HBaseView">Refresh view</a>
+<a class="button" href="/HDFSV/NodesView">See disks details</a>
+
+<div id="chartTables"></div>
+<div id="tables">
+		<table class="table-sort tablesorter" cellspacing="0" cellpadding="0">
+			<thead>
+					<tr>
+					<th></th>
+					<th>HBase Tables</th>
+					<th></th>
+					</tr>
+				<tr>
+					
+					<th><span>Name</span></th>
+					<th><span>Location /</span></th>
+					<th><span>Size</span></th>
+				</tr>
+			</thead>
+			<tbody id="databases_tbody">
+			</tbody>
+		</table>
+	</div>
+<div id="waitChartTables"><img alt="just wait a sec" src="resources/waiting.gif"></div>
+<div id="vBorder"></div>
+<div id="error" style="display:none; position: absolute; top:0px; left: 100px;"></div>
+<script src="resources/scripts/hbase.js"></script>
+</body>
+</html>

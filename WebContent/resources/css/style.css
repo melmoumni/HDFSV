@@ -1,0 +1,279 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: auto;
+	position: relative;
+	background-color: #1a1a1a;
+}
+
+html, body {
+	height: 100%;
+	min-height: 100%
+}
+
+circle, path {
+	cursor: pointer;
+}
+
+circle {
+	fill: none;
+	pointer-events: all;
+	fill: #cccccc;
+}
+
+path {
+	opacity: 0.9;
+}
+
+path:hover {
+	opacity: 1.0 !important;
+}
+
+#tooltip {
+	background-color: white;
+	padding: 3px 5px;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.arc text {
+	font: 10px sans-serif;
+	text-anchor: middle;
+}
+
+path text {
+	font: 10px sans-serif;
+	text-anchor: middle;
+}
+
+.shadow {
+	-webkit-filter: drop-shadow(-5px -5px 5px #000);
+	filter: drop-shadow(-5px -5px 5px #000);
+	/* Same syntax as box-shadow */
+}
+
+.arc text {
+	font: 10px sans-serif;
+	text-anchor: middle;
+}
+
+#wait {
+	z-index: 11;
+}
+
+#infos {
+	overflow: auto;
+}
+
+#infoSize {
+	position: absolute;
+}
+
+.right {
+	float: right;
+}
+
+#border {
+	position: absolute;
+	top: 0;
+	background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* For Firefox 3.6 to 15 */
+	background: linear-gradient(#1a1a1a, #A1A1A1, #1a1a1a);
+	/* Standard syntax */
+	width: 1px;
+	height: 100%;
+}
+
+.circle {
+	display: block;
+	background: black;
+	border-radius: 50%;
+	height: 10px;
+	width: 10px;
+	float: left;
+	margin-top: 3px;
+	margin-right: 5px;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0;
+	border: 1px solid #A1A1A1;
+}
+
+#path {
+	position: absolute;
+	cursor: pointer;
+	background-ccolor: #A1A1A1;
+}
+
+#path>span {
+	padding: 3px;
+	border-radius: 5px;
+	margin-right: 1px;
+	margin-bottom: 1px;
+	color: white;
+	float: left;
+}
+
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+}
+
+#url { /* Default input */
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
+
+#url #input {
+	border-color: #D9D9D9;
+	width: 250px;
+	height: 30px;
+	margin-left: -125px; /*set to a negative number 1/2 of your height*/
+	margin-top: -15px; /*set to a negative number 1/2 of your width*/
+	border: 1px solid #ccc;
+	background-color: #f3f3f3;
+}
+
+#url #input:focus { /* Selected input */
+	border-color: #4D90FE;
+}
+
+#time {
+	position: absolute;
+	top: 1px;
+	left: 170px;
+	color: #A1A1A1;
+	font-size: 12px;
+	margin-left: 1px;
+}
+
+.center {
+	color: #A1A1A1;
+	text-align: center;
+	word-wrap: break-word;
+}
+
+#replication {
+	color: white;
+}
+
+.node {
+	cursor: pointer;
+}
+
+.node:hover {
+	background: #2C2C2C;
+}
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../fonts/fontawesome-webfont.eot');
+	src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'),
+		url('../fonts/fontawesome-webfont.woff2') format('woff2'),
+		url('../fonts/fontawesome-webfont.woff') format('woff'),
+		url('../fonts/fontawesome-webfont.ttf') format('truetype'),
+		url('../fonts/fontawesome-webfont.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.fa {
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.fa-folder:before {
+	content: "\f07b";
+	color: white;
+}
+
+.d3-tip {
+	line-height: 1;
+	font-weight: bold;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	border-radius: 2px;
+}
+
+#range-wrapper  {
+	margin: auto;
+	position: absolute;
+	top: 93%;
+	left: 1%;
+	width: 48%
+}
+
+input[type="range"] {
+	-webkit-appearance: none !important;
+	width: 100%;
+	height: 4px;
+	background-color: #A3CD99;
+	border: 1px solid #1a1a1a;
+	margin: auto;
+	/*   transition: all 0.3s ease; */
+}
+
+input[type="range"]:hover {
+	background-color: #b2d5aa;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+	width: 20px;
+	height: 20px;
+	background-color: #579E81;
+	border-radius: 30px;
+	transition: all 0.5s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+	background-color: #457d66;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+	box-shadow: 0px 0px 1px #3c6d59;
+}
+
+#rangevalue {
+	text-align: center;
+	font-family: "Quantico", sans-serif;
+	font-size: 18px;
+	display: block;
+	width: 100%;
+	padding: 1px;
+	color: #579E81;
+}
+
+.message {
+	border: 1px solid;
+	margin: 10px 10px;
+	padding: 10px 15px 10px 15px;
+	border-radius:10px;
+	cursor: pointer; 
+}
+
+#error { z-index: 99999999; }
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+}
+
+.warning {
+	color: #9F6000;
+    background-color: #FEEFB3;
+}
