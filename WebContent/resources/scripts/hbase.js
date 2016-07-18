@@ -89,7 +89,7 @@ function error(message, level) {
 
 function errorManager(status, c_error) {
 	if(status == 404)
-		error(c_error.responseText.slice(45,-14), "error");
+		error(c_error.responseText.slice(45,-14).replace(/&amp;lt;/g, '<').replace(/&amp;gt;/g, '>'), "error");
 	else
 		error("An unkown error code has been used " + status + "<br>" + c_error.responseText.slice(45,-14), "error");
 }
