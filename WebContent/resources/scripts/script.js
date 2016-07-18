@@ -119,13 +119,10 @@
 	}
 	
 	function errorManager(status, c_error) {
-		var regex = "'<body>(.*?)</body></html>'si";
-		var matches = c_error.responseText.match(/<body>(.*?)<\/body>/);
-		if(matches) {
-			error(matches[1], "error");
-		} else {
-			error("An unknown error occured <br>error status " + status, "error");
-		}
+		if(status == 404)
+			error(c_error.responseText.slice(45,-14), "error");
+		else
+			error("An unkown error code has been used " + status + "<br>" + c_error.responseText.slice(45,-14), "error");
 	}
 
 	// creating the svg element that wrapp the sunburst, and placing it at the correct place 
@@ -522,12 +519,6 @@
 	.css("top", (numberOfLayers*radius+margin.top - 64) + "px");
 
 	$("#center")
-	.css("position", "absolute")
-	.css("left", (numberOfLayers*radius+margin.left - 28) + "px")
-	.css("top", (numberOfLayers*radius+margin.top - 9) + "px")
-	.css("z-index", 10);
-
-	$("#error")
 	.css("position", "absolute")
 	.css("left", (numberOfLayers*radius+margin.left - 28) + "px")
 	.css("top", (numberOfLayers*radius+margin.top - 9) + "px")

@@ -106,13 +106,10 @@ function error(message, level) {
 }
 
 function errorManager(status, c_error) {
-	var regex = "'<body>(.*?)</body></html>'si";
-	var matches = c_error.responseText.match(/<body>(.*?)<\/body>/);
-	if(matches) {
-		error(matches[1], "error");
-	} else {
-		error("An unknown error occured <br>error status " + status, "error");
-	}
+	if(status == 404)
+		error(c_error.responseText.slice(45,-14), "error");
+	else
+		error("An unkown error code has been used " + status + "<br>" + c_error.responseText.slice(45,-14), "error");
 }
 
 (function(d3) {
