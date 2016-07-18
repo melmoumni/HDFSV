@@ -88,12 +88,10 @@ public class HadoopModelTree extends HadoopModelImpl implements TreeI, Serializa
 
 	public String getHadoopData(int minSize) throws HadoopConfException {
 		if(!this.isInitilized()){
-			System.out.println("init");
 			this.init(minSize, "/");
 			return this.getJson();
 		}
 		else{
-			System.out.println("update");
 			this.update(minSize);
 			return this.getJson();
 		}
@@ -231,8 +229,6 @@ public class HadoopModelTree extends HadoopModelImpl implements TreeI, Serializa
 		if(otherNodes.get(child.getPath()) != null) { // child is already in "other" node
 			if(current.getChild(otherName) != null)
 				current.getChild(otherName).setSize(current.getChild(otherName).getSize() - otherNodes.get(child.getPath()) + child.getSize());
-			else
-				System.out.println("addToOther: Should not be happening.");
 		} else { // we just need to update the size of other (the filesize may have changed since the last update)
 			if(current.getChild(otherName) != null){
 				current.getChild(otherName).setSize(current.getChild(otherName).getSize() + child.getSize());

@@ -19,26 +19,6 @@ function error(message, level) {
 
 **/
 
-function errorManagerJSON(obj) {
-	if(parseInt(obj.summary[0].used) == -1)
-		error("While accessing global used space. Returned " + obj.summary[0].used, "warning");
-	if(parseInt(obj.summary[0].unused) == -1)
-		error("While accessing global unused space. Returned " + obj.summary[0].used, "warning");
-	if(parseInt(obj.replication) == -1)
-		error("While accessing global replication factor. Returned " + obj.replication, "warning");
-	if(!parseInt(obj.isOk))
-		error("Can not access global datanodes informations.", "error");
-		
-	for(var i = 1, len = obj.summary.length; i < len; i++) {
-		if(!parseInt(obj.summary[i].isOk))
-			error("Can not access node  " + obj.summary[i].name, "warning");
-		if(parseInt(obj.summary[i].used) == -1)
-			error("Can not used space in node " + obj.summary[i].name, "warning");
-		if(parseInt(obj.summary[i].unused) == -1)
-			error("Can not unused space in node " + obj.summary[i].name, "warning");
-	}
-}
-
 /**
  * Error handlig for Wildfly server :
  */
@@ -147,7 +127,6 @@ function createWrapper() {
 
 httpGetAsync("/HDFSV/NodesData", function(json) {
 	var obj = JSON.parse(json);
-	errorManagerJSON(obj);
 	$datanodes = $("#datanodes");
 	$datanodes.css({"margin-top": margin.top,
 					"margin-bottom": 0,

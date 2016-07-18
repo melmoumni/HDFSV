@@ -64,7 +64,7 @@ public class HiveModelImpl implements HiveModelI{
 					}
 				}
 				catch(Exception e){
-					System.out.println("no database");
+
 				}
 			}
 			catch(Exception e){
@@ -122,7 +122,6 @@ public class HiveModelImpl implements HiveModelI{
 							json.get("tbls").getAsJsonArray().add(tmp);
 						}
 						catch(Exception e){
-							System.out.println("hive can't find table"+tb);
 							tmp.addProperty("label", tb);
 							tmp.addProperty("isOk", 0);
 							json.get("tbls").getAsJsonArray().add(tmp);
@@ -130,7 +129,7 @@ public class HiveModelImpl implements HiveModelI{
 					}
 				}
 				catch(Exception e){
-					System.out.println("database : "+database+" is empty");
+
 				}
 			}
 			catch(Exception e){

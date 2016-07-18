@@ -73,7 +73,7 @@ public class HBaseModelImpl implements HBaseModelI{
 					}
 				}
 				catch(Exception e){
-					System.out.println("no tables");
+
 				}
 
 			}
