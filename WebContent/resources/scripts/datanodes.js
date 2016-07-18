@@ -1,4 +1,6 @@
-function errorManager(status) {
+/** Error handling for server different than wildfly:
+ * 
+ * function errorManager(status) {
 	switch(status){
 	case 1001:
 		error("Status " + status + ". Can't get Hadoop data, possible solution : <br>- Set the HADOOP_CONF environment variable to the absolute path of your hadoop hive-site.xml in your ~/.bashrc and then source ~/.bashrc <br>- Check that the HADOOP_CONF is set to a correct path and that the file is properly formated.", "error");
@@ -8,6 +10,14 @@ function errorManager(status) {
 		break;
 	}
 }
+
+function error(message, level) {
+	$("#error").append("<div class='message "+ level +"'>"+ level.toUpperCase() +": " + message +"</div>")
+			   .show();
+	$(".message:last").click(function() {$(this).fadeOut('fast'); });
+}
+
+**/
 
 function errorManagerJSON(obj) {
 	if(parseInt(obj.summary[0].used) == -1)
@@ -29,20 +39,40 @@ function errorManagerJSON(obj) {
 	}
 }
 
+/**
+ * Error handlig for Wildfly server :
+ */
 function error(message, level) {
 	$("#error").append("<div class='message "+ level +"'>"+ level.toUpperCase() +": " + message +"</div>")
-			   .show();
+	.show();
+
 	$(".message:last").click(function() {$(this).fadeOut('fast'); });
+	if(level === "error") {
+		$("#waitChartDatabases").hide();
+		$("#waitChartTables").hide();
+		$("table").hide(); 
+	}
 }
 
+function errorManager(status, c_error) {
+	console.log("errorManager");
+	var regex = "'<body>(.*?)</body></html>'si";
+	var matches = c_error.responseText.match(/<body>(.*?)<\/body>/);
+	if(matches) {
+		error(matches[1], "error");
+	} else {
+		error("An unknown error occured <br>error status " + status, "error");
+	}
+}
 
 function httpGetAsync(theUrl, callback) {
 	var xmlHttp = new XMLHttpRequest();
 	xmlHttp.onreadystatechange = function() { 
+		console.log(xmlHttp);
 		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
 			callback(xmlHttp.responseText);
-		else if(xmlHttp.readyState == 4 && xmlHttp.status != 200)
-			errorManager(xmlHttp.status);
+		else
+			errorManager(xmlHttp.status, xmlHttp);
 	}
 	xmlHttp.open("GET", theUrl, true); // true for asynchronous which we want
 	xmlHttp.send(null);

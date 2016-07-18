@@ -29,6 +29,10 @@ $("#chartTables")
 .css("width", 2*radius+ "px")
 .css("height", 2*radius + "px");
 
+/**
+ * Error handling for server different than Wildfly
+ * @param status
+ 
 function errorManager(status) {
 	switch(status){
 	case 1001:
@@ -43,6 +47,19 @@ function errorManager(status) {
 	}
 }
 
+function error(message, level) {
+	$("#error").append("<div class='message "+ level +"'>"+ level.toUpperCase() +": " + message +"</div>")
+			   .show();
+
+	$(".message:last").click(function() {$(this).fadeOut('fast'); });
+	if(level === "error") {
+		$("#waitChartDatabases").hide();
+		$("#waitChartTables").hide();
+		$("table").hide(); 
+	}
+}
+**/
+
 function errorManagerJSON(array_item) {
 	var dset = [];
 	for(var i = 0, len = array_item.length; i < len; i++) {
@@ -54,15 +71,29 @@ function errorManagerJSON(array_item) {
 	return dset;
 }
 
+
+/**
+ * Error handlig for Wildfly server :
+ */
 function error(message, level) {
 	$("#error").append("<div class='message "+ level +"'>"+ level.toUpperCase() +": " + message +"</div>")
-			   .show();
+	.show();
 
 	$(".message:last").click(function() {$(this).fadeOut('fast'); });
 	if(level === "error") {
 		$("#waitChartDatabases").hide();
 		$("#waitChartTables").hide();
 		$("table").hide(); 
+	}
+}
+
+function errorManager(status, c_error) {
+	var regex = "'<body>(.*?)</body></html>'si";
+	var matches = c_error.responseText.match(/<body>(.*?)<\/body>/);
+	if(matches) {
+		error(matches[1], "error");
+	} else {
+		error("An unknown error occured <br>error status " + status, "error");
 	}
 }
 

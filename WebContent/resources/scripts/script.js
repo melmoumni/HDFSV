@@ -106,17 +106,6 @@
 	/**
 	 * Error handler using the code status returned by the servlet
 	 */
-	function errorManager(status) {
-		switch(status){
-		case 1001:
-			error("Status " + status + ". Can't get Hadoop data, possible solution : <br>- Set the HADOOP_CONF environment variable to the absolute path of your hadoop hive-site.xml in your ~/.bashrc and then source ~/.bashrc <br>- Check that the HADOOP_CONF is set to a correct path and that the file is properly formated.", "error");
-			break;
-		default:
-			error("An unknown error occured <br>error status " + status, "error");
-			break;
-		}
-	}
-
 	function error(message, level) {
 		$("#error").append("<div class='message "+ level +"'>"+ level.toUpperCase() +": " + message +"</div>")
 				   .show();
@@ -129,6 +118,16 @@
 		}
 	}
 	
+	function errorManager(status, c_error) {
+		var regex = "'<body>(.*?)</body></html>'si";
+		var matches = c_error.responseText.match(/<body>(.*?)<\/body>/);
+		if(matches) {
+			error(matches[1], "error");
+		} else {
+			error("An unknown error occured <br>error status " + status, "error");
+		}
+	}
+
 	// creating the svg element that wrapp the sunburst, and placing it at the correct place 
 	
 	/**
@@ -187,7 +186,7 @@
 	d3.json("/HDFSV/HadoopData?minSize=" + $("#range").val(), function(error, root) {
 		$("#wait").hide();
 		if(error) {
-			errorManager(error.status);
+			errorManager(error.status, error);
 		} else {
 			// compute and display the time it took for the servlet to answer the request
 			var end = new Date().getTime();
