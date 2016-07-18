@@ -47,16 +47,17 @@ public class HBaseModelImpl implements HBaseModelI{
 					String name;
 					String location;
 					long size;
-					for(int i = 0; i< tablesDescriptor.length; i++){
+					for(int i = 0; i < tablesDescriptor.length; i++){
 						JsonObject tmp = new JsonObject();
-						name = tablesDescriptor[i].getNameAsString();
-						if(hbaseConf.get("fs.defaultFS").endsWith("/"))
-							location = hbaseConf.get("fs.defaultFS")+"hbase/data/default/"+name;
-						else 
-							location = hbaseConf.get("fs.defaultFS")+"/hbase/data/default/"+name;
+						name = tablesDescriptor[i].getNameAsString();			
+						location = hbaseConf.get("hbase.rootdir").replace(hbaseConf.get("fs.defaultFS"), "");
+						if(!location.startsWith("/"))
+							location = "/"+location;
+						if(!location.endsWith("/"))
+							location = location+"/";
+						location = location+"data/"+tablesDescriptor[i].getTableName().getNamespaceAsString()+"/"+name;
 						try{
 							size = hdfs.getContentSummary(new Path(location)).getLength();
-							location = location.replace(hbaseConf.get("fs.defaultFS"), "");
 							tmp.addProperty("name", name);
 							tmp.addProperty("location", location);
 							tmp.addProperty("size", size);

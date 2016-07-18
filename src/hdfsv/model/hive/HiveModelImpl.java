@@ -40,7 +40,7 @@ public class HiveModelImpl implements HiveModelI{
 				DistributedFileSystem hdfs = (DistributedFileSystem)DistributedFileSystem.get(hiveConf);
 				try{
 					json.add("dbs", new JsonArray());
-					//getting all the tables
+					//getting all the databases
 					List<String> dbs = client.getAllDatabases();
 					JsonObject dbJson = null;
 					for(String db:dbs){
@@ -48,32 +48,13 @@ public class HiveModelImpl implements HiveModelI{
 							Database database = client.getDatabase(db);
 							dbJson = new JsonObject();
 							dbJson.addProperty("label", db);
-							dbJson.addProperty("location", database.getLocationUri().replace(hiveConf.get("fs.defaultFS"), ""));
-							int sum = 0;
-							try{
-								List<String> tables = client.getAllTables(db);
-								Table table;
-								String location;
-								long size;
-								for(String tb:tables){ 
-									try{
-										table = client.getTable(db, tb);
-										location = table.getSd().getLocation();
-										size = hdfs.getContentSummary(new Path(location)).getLength();
-										sum += size;
-									}
-									catch(Exception e){
-										System.out.println("hive or hdfs can't find table : "+tb);
-									}
-								}
-								dbJson.addProperty("count", sum);
-								dbJson.addProperty("isOk", 1);
-								json.get("dbs").getAsJsonArray().add(dbJson);
-							}
-							catch(Exception e){
-								dbJson.addProperty("isOk", 1);
-								json.get("dbs").getAsJsonArray().add(dbJson);
-							}		
+							String location = database.getLocationUri().replace(hiveConf.get("fs.defaultFS"), "");
+							if(!location.startsWith("/"))
+								location = "/"+location;
+							dbJson.addProperty("location", location);
+							dbJson.addProperty("count", hdfs.getContentSummary(new Path(location)).getLength());
+							dbJson.addProperty("isOk", 1);
+							json.get("dbs").getAsJsonArray().add(dbJson);
 						}
 						catch(Exception e){
 							dbJson.addProperty("label", db);

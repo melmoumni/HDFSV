@@ -47,7 +47,7 @@
 		var dm = decimals + 1 || 3;
 		var sizes = ['o', 'Ko', 'Mo', 'Go', 'To', 'Po', 'Eo', 'Zo', 'Yo'];
 		var i = Math.floor(Math.log(bytes) / Math.log(k));
-		return (bytes / Math.pow(k, i)).toPrecision(dm) + ' ' + sizes[i];
+		return (bytes / Math.pow(k, i)).toPrecision(dm)+ ' ' + sizes[i];
 	}
 
 	function getSearchParameters() {	  	//get the parameters passed through url

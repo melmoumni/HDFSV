@@ -145,7 +145,7 @@ public class HadoopModelImpl implements HadoopModelI{
 				json.add("summary", new JsonArray());
 				json.addProperty("isOk", 1);
 				try{
-					global.addProperty("used", hdfs.getStatus().getUsed());
+					global.addProperty("used", hdfs.getContentSummary(new Path(configuration.get("fs.defaultFS"))).getLength()/*getStatus().getUsed()*/);
 					global.addProperty("unused", hdfs.getStatus().getRemaining());
 					json.get("summary").getAsJsonArray().add(global);
 					for(int i = 0; i < dataNodes.length; i++){
