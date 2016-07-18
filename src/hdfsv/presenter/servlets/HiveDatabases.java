@@ -45,13 +45,13 @@ public class HiveDatabases extends HttpServlet {
 		try {
 			json = model.getHiveDatabases();
 			response.getWriter().print(json);
+		}  catch (HadoopConfException e) {
+			String cf = System.getenv("HADOOP_CONF");
+			response.sendError(404, "An error occured while trying to access Hadoop Metadata. HADOOP_CONF is set to this path : "+cf+". Pleas check that this path is correct");
 		} catch (HiveConfException e) {
-			System.out.println("hive servlet");
-			response.sendError(1000);
-		} catch (HadoopConfException e) {
-			System.out.println("hadoop servlet");
-			response.sendError(1001);
-		} 
+			String cf = System.getenv("HIVE_CONF");
+			response.sendError(404, "An error occured while trying to access Hive Metadata. HIVE_CONF is set to this path : "+cf+". Pleas check that this path is correct");		
+		}
 	}
 
 	/**

@@ -43,7 +43,7 @@ public class NodesData extends HttpServlet {
 			response.getWriter().print(json);
 		} catch (HadoopConfException e) {
 			String cf = System.getenv("HADOOP_CONF");
-			response.sendError(1001, cf);
+			response.sendError(404, "An error occured while trying to access Hadoop Metadata. HADOOP_CONF is set to this path : "+cf+". Pleas check that this path is correct");
 		}
 		
 	}

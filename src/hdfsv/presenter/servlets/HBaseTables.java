@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import hdfsv.exceptions.HBaseConfException;
 import hdfsv.exceptions.HadoopConfException;
+import hdfsv.exceptions.HiveConfException;
 import hdfsv.model.hbase.HBaseModelI;
 
 /**
@@ -43,12 +44,12 @@ public class HBaseTables extends HttpServlet {
 		try{
 			json = model.getHBaseTbales();
 			response.getWriter().print(json);
-		}
-		catch(HadoopConfException e){
-			response.sendError(1001);
-		}
-		catch(HBaseConfException e){
-			response.sendError(1002);
+		}  catch (HadoopConfException e) {
+			String cf = System.getenv("HADOOP_CONF");
+			response.sendError(404, "An error occured while trying to access Hadoop Metadata. HADOOP_CONF is set to this path : "+cf+". Pleas check that this path is correct");
+		} catch (HBaseConfException e) {
+			String cf = System.getenv("HBASE_CONF");
+			response.sendError(404, "An error occured while trying to access HBase Metadata. HBASE_CONF is set to this path : "+cf+". Pleas check that this path is correct");		
 		}
 		
 	}
