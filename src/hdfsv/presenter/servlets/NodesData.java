@@ -41,8 +41,9 @@ public class NodesData extends HttpServlet {
 		try {
 			json = model.getNodesData();
 			response.getWriter().print(json);
-		} catch (HadoopConfException e) {	
-			response.sendError(1001);
+		} catch (HadoopConfException e) {
+			String cf = System.getenv("HADOOP_CONF");
+			response.sendError(1001, cf);
 		}
 		
 	}

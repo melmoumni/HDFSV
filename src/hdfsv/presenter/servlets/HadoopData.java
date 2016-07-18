@@ -48,7 +48,8 @@ public class HadoopData extends HttpServlet {
 			json = model.getHadoopData(minSize);
 			response.getWriter().print(json);
 		} catch (HadoopConfException e) {
-			response.sendError(1001);
+			String cf = System.getenv("HADOOP_CONF");
+			response.sendError(1001, cf);
 		}
 		
 	}
