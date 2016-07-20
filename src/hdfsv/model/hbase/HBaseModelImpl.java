@@ -32,6 +32,7 @@ public class HBaseModelImpl implements HBaseModelI{
 			hbaseConf.addResource(hbasep);
 			HBaseAdmin.checkHBaseAvailable(hbaseConf);
 			HBaseAdmin admin = new HBaseAdmin(hbaseConf);
+			HTableDescriptor[] tablesDescriptor = admin.listTables();
 			try{
 				//Setting Hadoop Conf
 				String hdfsCf = System.getenv("HADOOP_CONF");
@@ -41,41 +42,33 @@ public class HBaseModelImpl implements HBaseModelI{
 				FileSystem fs = FileSystem.get(hbaseConf);
 				hdfs = (DistributedFileSystem) fs;
 				hdfs.setConf(hbaseConf);
-				
-				try{
-					HTableDescriptor[] tablesDescriptor = admin.listTables();
-					String name;
-					String location;
-					long size;
-					for(int i = 0; i < tablesDescriptor.length; i++){
-						JsonObject tmp = new JsonObject();
-						name = tablesDescriptor[i].getNameAsString();			
-						location = hbaseConf.get("hbase.rootdir").replace(hbaseConf.get("fs.defaultFS"), "");
-						if(!location.startsWith("/"))
-							location = "/"+location;
-						if(!location.endsWith("/"))
-							location = location+"/";
-						location = location+"data/"+tablesDescriptor[i].getTableName().getNamespaceAsString()+"/"+name;
-						try{
-							size = hdfs.getContentSummary(new Path(location)).getLength();
-							tmp.addProperty("name", name);
-							tmp.addProperty("location", location);
-							tmp.addProperty("size", size);
-							tmp.addProperty("isOk", 1);
-						}
-						catch(Exception e){
-							tmp.addProperty("name", name);
-							tmp.addProperty("location", location);
-							tmp.addProperty("isOk", 0);
-						}
-						
-						json.get("tbls").getAsJsonArray().add(tmp);
+				String name;
+				String location;
+				long size;
+				for(int i = 0; i < tablesDescriptor.length; i++){
+					JsonObject tmp = new JsonObject();
+					name = tablesDescriptor[i].getNameAsString();			
+					location = hbaseConf.get("hbase.rootdir").replace(hbaseConf.get("fs.defaultFS"), "");
+					if(!location.startsWith("/"))
+						location = "/"+location;
+					if(!location.endsWith("/"))
+						location = location+"/";
+					location = location+"data/"+tablesDescriptor[i].getTableName().getNamespaceAsString()+"/"+name;
+					try{
+						size = hdfs.getContentSummary(new Path(location)).getLength();
+						tmp.addProperty("name", name);
+						tmp.addProperty("location", location);
+						tmp.addProperty("size", size);
+						tmp.addProperty("isOk", 1);
 					}
-				}
-				catch(Exception e){
+					catch(Exception e){
+						tmp.addProperty("name", name);
+						tmp.addProperty("location", location);
+						tmp.addProperty("isOk", 0);
+					}
 
+					json.get("tbls").getAsJsonArray().add(tmp);
 				}
-
 			}
 			catch(Exception e){
 				throw new HadoopConfException();
