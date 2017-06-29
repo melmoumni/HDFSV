@@ -1,8 +1,11 @@
 package hdfsv.model.hadoop;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Named;
@@ -25,6 +28,13 @@ import hdfsv.exceptions.HadoopConfException;
 @Named("standardHadoop")
 public class HadoopModelImpl implements HadoopModelI{
 
+	public HadoopModelImpl() throws SecurityException, IOException {
+		FileHandler fh = new FileHandler(logPath);  
+        logger.addHandler(fh);
+        SimpleFormatter formatter = new SimpleFormatter();  
+        fh.setFormatter(formatter);  
+
+	}
 
 	private int indexInArray(JsonArray array, String id){
 		for(int i = 0; i < array.size(); i++){
@@ -43,6 +53,7 @@ public class HadoopModelImpl implements HadoopModelI{
 			TreeMap<String,Map<String, Long>> structure = new TreeMap<String, Map<String, Long>>();
 			String cf = System.getenv("HADOOP_CONF");
 			Path p = new Path(cf);
+			logger.info("The used path is : " +p);	
 			Configuration configuration = new Configuration(true);
 			configuration.addResource(p);
 			FileSystem hdfs;

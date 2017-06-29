@@ -4,6 +4,7 @@
 
 package hdfsv.model.hadoop;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 import javax.enterprise.context.SessionScoped;
@@ -69,7 +70,7 @@ public class HadoopModelTree extends HadoopModelImpl implements TreeI, Serializa
 	 * Constructor: initialize root and hdfs
 	 * @throws HadoopConfException
 	 */
-	public HadoopModelTree() throws HadoopConfException{
+	public HadoopModelTree() throws HadoopConfException, SecurityException, IOException{
 		try{
 			String cf = System.getenv("HADOOP_CONF");
 			Path p = new Path(cf);
